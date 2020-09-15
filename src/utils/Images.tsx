@@ -9,12 +9,10 @@ export const getImage = ((x: number, y: number) => {
         return tom;
     }
     if (x < 0.5) {
-        console.log('X MINDRE');
         return y < 0.5
             ? upper_left
             : lower_left
     }
-    console.log('X STØRRE');
     return y < 0.5
         ? upper_right
         : lower_right
