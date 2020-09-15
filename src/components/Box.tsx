@@ -1,14 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components'
-import veden from '../images/veden.jpg';
-import useMousePosition from "../utils/MousePosition";
-import useWindowDimensions from "../utils/WindowSize";
+import useMousePosition from '../utils/MousePosition';
+import useWindowDimensions from '../utils/WindowSize';
+import {getImage} from "../utils/Images";
 
-const BoxWrapper = styled.div`
-    background-image: url(${veden});
-    height: 100%; 
+interface BoxProps {
+    image: string,
+}
 
-    /* Center and scale the image nicely */
+const BoxWrapper = styled.div<BoxProps>`
+    background-image: url(${props => props.image});
+    height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -27,7 +29,7 @@ const Box = () => {
 
     const hasMovedCursor = typeof x === "number" && typeof y === "number";
 
-    return <BoxWrapper>
+    return <BoxWrapper image={getImage(relativePositionX, relativePositionY)}>
         {hasMovedCursor
             ? `Your cursor is at ${x}, ${y}. Max size is ${width}, ${height}. Relative position is ${relativePositionX}, ${relativePositionY}`
             : "Move your mouse around."}
