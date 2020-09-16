@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components'
 import useMousePosition from '../utils/MousePosition';
 import useWindowDimensions from '../utils/WindowSize';
-import {getImage} from "../utils/Images";
+import { getImage } from "../utils/Images";
 
 interface BoxProps {
     image: string,
@@ -13,7 +13,7 @@ const BoxWrapper = styled.div<BoxProps>`
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
 `
 
 const Box = () => {
