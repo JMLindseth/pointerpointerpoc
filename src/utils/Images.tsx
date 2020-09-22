@@ -16,46 +16,51 @@ import treEn from '../images/31.png'
 import treTo from '../images/32.png'
 import treTre from '../images/33.png'
 
-export const getImage = ((x: number, y: number) => {
-    if (x === -1 || y === -1) {
+export const getImage = ((relativePositionX: number, relativePositionY: number) => {
+    if (relativePositionX === -1 || relativePositionY === -1) {
         return ny_tom;
     }
 
-    if (x < 0.25) {
-        if (y < 0.25) {
-            return nullNull;
-        } else if (y < 0.5) {
-            return nullEn;
-        } else if (y < 0.75) {
-            return nullTo;
-        }
-        return nullTre;
-    } else if (x < 0.5) {
-        if (y < 0.25) {
-            return enNull;
-        } else if (y < 0.5) {
-            return enEn;
-        } else if (y < 0.75) {
-            return enTo;
-        }
-        return enTre;
-    } else if (x < 0.75) {
-        if (y < 0.25) {
-            return toNull;
-        } else if (y < 0.5) {
-            return toEn;
-        } else if (y < 0.75) {
-            return toTo;
-        }
-        return toTre;
-    }
-    if (y < 0.25) {
-        return treNull;
-    } else if (y < 0.5) {
-        return treEn;
-    } else if (y < 0.75) {
-        return treTo;
-    }
-    return treTre;
+    const xIndex = ranges.findIndex((range) => {
+        return relativePositionX >= range.start && relativePositionX <= range.end;
+    });
+
+    const yIndex = ranges.findIndex((range) => {
+        return relativePositionY >= range.start && relativePositionY <= range.end;
+    });
+
+    const imageRef = imageRefs.find((ref) => {
+        return ref.x === xIndex && ref.y === yIndex;
+    });
+
+    return !!imageRef
+        ? imageRef.image
+        : ny_tom;
 
 })
+
+const ranges = [
+    {start: 0.0, end: 0.25},
+    {start: 0.25, end: 0.5},
+    {start: 0.5, end: 0.75},
+    {start: 0.75, end: 1},
+]
+
+const imageRefs = [
+    {x: 0, y: 0, image: nullNull},
+    {x: 0, y: 1, image: nullEn},
+    {x: 0, y: 2, image: nullTo},
+    {x: 0, y: 3, image: nullTre},
+    {x: 1, y: 0, image: enNull},
+    {x: 1, y: 1, image: enEn},
+    {x: 1, y: 2, image: enTo},
+    {x: 1, y: 3, image: enTre},
+    {x: 2, y: 0, image: toNull},
+    {x: 2, y: 1, image: toEn},
+    {x: 2, y: 2, image: toTo},
+    {x: 2, y: 3, image: toTre},
+    {x: 3, y: 0, image: treNull},
+    {x: 3, y: 1, image: treEn},
+    {x: 3, y: 2, image: treTo},
+    {x: 3, y: 3, image: treTre},
+]
